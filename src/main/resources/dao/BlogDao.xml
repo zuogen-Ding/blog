@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.banyuan.dao.BlogDao">
+    <select id="selectBlogsByUsername" resultType="club.banyuan.bean.Blog">
+        select b.* from (blog as b join user as u on b.user_id=u.id) where u.name=#{username}
+  </select>
+
+    <select id="selectBlogsByPageInfo" resultType="club.banyuan.bean.Blog">
+        select b.* from (blog as b join user as u on b.user_id=u.id)
+        where u.name=#{username}  limit #{limit} offset #{offset}
+  </select>
+    <select id="selectBlogsCountByUsername" resultType="Integer">
+        select count(*) from (blog as b join user as u on b.user_id=u.id) where u.name=#{username}
+  </select>
+    <select id="selectBlogById" resultType="club.banyuan.bean.Blog">
+        select * from blog where id=#{id}
+    </select>
+
+    <insert id="insertBlog" parameterType="club.banyuan.bean.Blog">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into blog (title, content, user_id) VALUES (#{title},#{content},#{userId})
+    </insert>
+</mapper>
