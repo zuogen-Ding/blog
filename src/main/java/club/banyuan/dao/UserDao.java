@@ -8,6 +8,5 @@ public interface UserDao {
     //通过username查询
     User selectUserByName(String name);
     User selectUserByBlogId(Integer id);
-
-
+    User selectUserByEmail(String email);
 }

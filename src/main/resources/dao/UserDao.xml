@@ -8,4 +8,8 @@
     <select id="selectUserByBlogId" resultType="club.banyuan.bean.User" >
         select u.* from (user as u join blog as b on u.id =b.user_id) where b.id=#{id}
     </select>
+
+    <select id="selectUserByEmail" resultType="club.banyuan.bean.User" >
+        select * from user where email=#{email}
+    </select>
 </mapper>

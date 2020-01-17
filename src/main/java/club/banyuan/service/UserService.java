@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private UserDao userDao;
-//    @Contract(pure = true)
     @Autowired
     public UserService(UserDao userDao) {
         this.userDao = userDao;
@@ -22,4 +21,6 @@ public class UserService {
     public User getUserByBlogId(Integer id){
         return userDao.selectUserByBlogId(id);
     }
+
+    public User getuserByEmail(String email){return userDao.selectUserByEmail(email);}
 }

@@ -128,8 +128,9 @@
               -->
             <br>
               <a href="#" ></a>
-              <span class="text-muted date" th:text="${#dates.format(blog.createdTime, 'yyyy年MM月dd日 HH:mm:ss')}"> "${comment.createdTime}"</span>
-            <br><span class="comments" disabled th:text="${comment.content}"></span>
+              <span class="text-muted date" th:text="${#dates.format(comment.createdTime, 'yyyy年MM月dd日 HH:mm:ss')}"> "${comment.createdTime}"</span>
+            <br>
+            <span class="comments"  th:text="${comment.content}"></span>
             </p>
           </li>
           <li></li>

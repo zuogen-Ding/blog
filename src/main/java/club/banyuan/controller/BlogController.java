@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -32,25 +33,33 @@ public class BlogController {
                        Model model
     ) {
         User user = userService.getUserByName(username);
-        PageInfo blog=blogService.pageUserBlogs(username,page,size);
+        PageInfo blog = blogService.pageUserBlogs(username, page, size);
         model.addAttribute("user", user);
-        model.addAttribute("blog",blog);
+        model.addAttribute("blog", blog);
 
         return "list";
 
     }
+
     @GetMapping("/blog/create")
-    String createBlogPage(){
-        return "create";
+    String createBlogPage(HttpSession session,
+                          HttpServletRequest request) {
+        User user = (User) session.getAttribute("CURRENT_USER");
+        if (user != null) return "create";
+        return "redirect:/login?next="+request.getRequestURI();
     }
+
     @PostMapping("/blogs")
-    String createBlog(@RequestParam String title,@RequestParam String content){
-        Blog blog=new Blog();
-        blog.setUserId(1);
+    String createBlog(@RequestParam String title,
+                      @RequestParam String content,
+                      HttpSession session) {
+        Blog blog = new Blog();
+        User user = (User) session.getAttribute("CURRENT_USER");
+        blog.setUserId(user.getId());
         blog.setTitle(title);
         blog.setContent(content);
         blogService.addBlog(blog);
-        return "redirect:/blogs/"+blog.getId();
+        return "redirect:/blogs/" + blog.getId();
 
     }
 
