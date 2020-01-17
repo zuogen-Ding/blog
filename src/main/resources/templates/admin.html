@@ -94,8 +94,8 @@
 
     <nav>
       <ul class="pager">
-        <li th:if="${blog.hasPreviousPage}" class="previous"><a th:href="@{'/login?page='+${blog.prePage}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-        <li th:if="${blog.hasNextPage}" class="next"><a th:href="@{'/login?page=' + ${blog.nextPage}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        <li th:if="${blog.hasPreviousPage}" class="previous"><a th:href="@{'/admin/'+ ${user.name} + '?page=' + ${blog.prePage}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+        <li th:if="${blog.hasNextPage}" class="next"><a th:href="@{'/admin/'+ ${user.name} + '?page=' + ${blog.nextPage}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
       </ul>
     </nav>
 

@@ -37,14 +37,13 @@ public class LoginController {
         }
         if (user != null && password.equals(user.getPassword())) {
             session.setAttribute("CURRENT_USER", user);
-            String name = user.getName();
             String uri = (String) session.getAttribute("NEXT_URI");
             if (uri != null) {
                 session.removeAttribute("NEXT_URI");
                 return "redirect:" + uri;
             }
 
-            return "redirect:/admin" ;
+            return "redirect:/admin/"+ URLEncoder.encode(user.getName(),"utf-8");
 
         }
         return "redirect:/login";

@@ -43,10 +43,11 @@ public class BlogController {
 
     @GetMapping("/blog/create")
     String createBlogPage(HttpSession session,
-                          HttpServletRequest request) {
+                          Model model
+    ) {
         User user = (User) session.getAttribute("CURRENT_USER");
-        if (user != null) return "create";
-        return "redirect:/login?next="+request.getRequestURI();
+        model.addAttribute("user",user);
+        return "create";
     }
 
     @PostMapping("/blogs")

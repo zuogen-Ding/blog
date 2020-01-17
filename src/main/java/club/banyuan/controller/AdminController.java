@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/{username}")
 public class AdminController {
     @Autowired
     private BlogService blogService;
@@ -31,14 +31,11 @@ public class AdminController {
     ) {
 
         User user = (User) session.getAttribute("CURRENT_USER");
-        if (user != null) {
-            String name = user.getName();
-            PageInfo blog = blogService.pageUserBlogs(name, page, size);
-            model.addAttribute("blog", blog);
-            model.addAttribute("user",user);
-            return "admin";
-        } else {
-            return "redirect:/login?next" + request.getRequestURI();
-        }
+        String name = user.getName();
+        PageInfo blog = blogService.pageUserBlogs(name, page, size);
+        model.addAttribute("blog", blog);
+        model.addAttribute("user", user);
+        return "admin";
+
     }
 }
